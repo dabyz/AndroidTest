@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 public class ImagePartAdapter extends BaseAdapter{
 	private Context context;
@@ -37,12 +38,11 @@ public class ImagePartAdapter extends BaseAdapter{
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View view = inflater.inflate(R.layout.row_image, parent);
-		images.get(position);
-		
-		
-		
-		
-		return null;
+		ImageView imageView = (ImageView) view.findViewById(R.id.imageView1);
+		imageView.setImageBitmap(
+				images.get(position).getBitmap()
+				);
+		return view;
 	}
 
 }

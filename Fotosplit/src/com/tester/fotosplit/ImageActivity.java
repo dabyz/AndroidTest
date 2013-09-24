@@ -9,12 +9,19 @@ import android.widget.GridView;
 public class ImageActivity extends Activity {
 	
 	private GridView grid;
+	private ImagePartAdapter adapter;
+	private ArrayList<ImagePart> images;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_image);
+		images =  
+		
+		adapter = new ImagePartAdapter(this, images)
+		
 		grid = (GridView) findViewById(R.id.gridView);
+		grid.setAdapter(adapter);
 	}
 
 	@Override

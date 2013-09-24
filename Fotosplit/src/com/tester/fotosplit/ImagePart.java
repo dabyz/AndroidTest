@@ -1,33 +1,24 @@
 package com.tester.fotosplit;
 
-import android.content.Context;
-import android.util.AttributeSet;
-import android.widget.ImageView;
+import android.graphics.Bitmap;
 
-public class ImagePart extends ImageView{
+public class ImagePart{
 	private int column;
 	private int row;
+	private Bitmap bitmap;
 
-	public ImagePart(Context context, int column, int row) {
-		super(context);
+	
+	
+	public ImagePart() {
+		super();
+	}
+
+
+	public ImagePart( int column, int row, Bitmap bitmap) {
 		this.column = column;
 		this.row = row;
 	}
 
-	public ImagePart(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		
-	}
-
-	public ImagePart(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		// TODO Auto-generated constructor stub
-	}
-
-	public ImagePart(Context context) {
-		super(context);
-		// TODO Auto-generated constructor stub
-	}
 
 	public int getColumn() {
 		return column;
@@ -43,6 +34,16 @@ public class ImagePart extends ImageView{
 
 	public void setRow(int row) {
 		this.row = row;
+	}
+
+
+	public Bitmap getBitmap() {
+		return bitmap;
+	}
+
+
+	public void setBitmap(Bitmap bitmap) {
+		this.bitmap = bitmap;
 	}
 
 
