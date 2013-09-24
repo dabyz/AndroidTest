@@ -36,7 +36,11 @@ public class ImagePartAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		inflater.inflate(R.layout.row_image, parent);
+		View view = inflater.inflate(R.layout.row_image, parent);
+		images.get(position);
+		
+		
+		
 		
 		return null;
 	}
