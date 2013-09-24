@@ -1,4 +1,4 @@
-package com.tester.fotosplit;
+package com.tester.fotosplit.activitys;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -18,10 +18,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.tester.fotosplit.R;
+
 public class MainActivity extends Activity {
 	
 	private Uri uri;
 	private int cells=3;
+	private int width;
+	private int height;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,24 +35,29 @@ public class MainActivity extends Activity {
 		Button buttonPlay = (Button) findViewById(R.id.main_button_play);
 		registerForContextMenu(buttonPlay);
 	}
-
+	
+	/**
+	 * Is call if button select is pressed.
+	 * Open the system gallery to select a picture.
+	 * @param view
+	 */
 	public void select(View view) {
 		
-		// Construcción Intent
+		// Intent construction
 		
 		Intent intent = new Intent(Intent.ACTION_PICK);
 		intent.setType("image/*");
 		
 		
 
-		// Comprobación de disponibilidad de aplicación para el Intent
+		// Ask to the System if exists application to handle this intent
 
 		PackageManager packageManager = getPackageManager();
 		List<ResolveInfo> activities = packageManager.queryIntentActivities(
 				intent, 0);
 		boolean isIntentSafe = activities.size() > 0;
 
-		// Se lanza la activity
+		// Starts actity if and only if isIntentSafe is true
 		if (isIntentSafe) {
 			startActivityForResult(intent, 100);
 		}
@@ -61,7 +70,8 @@ public class MainActivity extends Activity {
 	public void play (View view){
 		Intent intent = new Intent (this, ImageActivity.class);
 		intent.putExtra("URI", uri.toString());
-		
+		intent.putExtra("HEIGHT", height);
+		intent.putExtra("WIDTH", width);
 		intent.putExtra("CELLS",cells);
 		
 		startActivity(intent);
@@ -87,11 +97,12 @@ public class MainActivity extends Activity {
 				ImageView imageView = (ImageView) findViewById(R.id.main_imageView);
 				Bitmap bitmap = BitmapFactory.decodeStream(is);
 				imageView.setImageBitmap(bitmap);
+				
+				height = bitmap.getHeight();
+				width = bitmap.getWidth();
+				
+				System.out.println("Height: " + height+ ", Width: " + width);
 
-				System.out.println("Request Code: " + requestCode);
-				System.out.println("Result Code: " + resultCode);
-				System.out.println("Data: " + data.getData() != null ? data
-						.getData() : "null");
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -1,4 +1,4 @@
-package com.tester.fotosplit;
+package com.tester.fotosplit.entitys;
 
 import java.util.ArrayList;
 
@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+
+import com.tester.fotosplit.R;
 
 public class ImagePartAdapter extends BaseAdapter{
 	private Context context;
@@ -36,13 +39,15 @@ public class ImagePartAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View view = inflater.inflate(R.layout.row_image, parent);
-		images.get(position);
+		View view = inflater.inflate(R.layout.row_image, null);
+		ImageView imageView = (ImageView) view.findViewById(R.id.imageView1);
+
+		imageView.setImageBitmap(
+				images.get(position).getBitmap());
+		System.out.println(context.getResources().getDisplayMetrics());
 		
 		
-		
-		
-		return null;
+		return view;
 	}
 
 }
