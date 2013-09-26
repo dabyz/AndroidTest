@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -81,5 +82,4 @@ public class PhotoSplit {
 		}
 		return bitmap;
 	}
-	
 }
