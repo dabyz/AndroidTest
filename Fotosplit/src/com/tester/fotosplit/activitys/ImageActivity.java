@@ -3,9 +3,14 @@ package com.tester.fotosplit.activitys;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.tester.fotosplit.R;
 import com.tester.fotosplit.entitys.ImagePart;
@@ -43,7 +48,14 @@ public class ImageActivity extends Activity {
 		toUri = getIntent().getStringExtra("URI");
 		images = photoSplit.splitPhoto(toUri, cells, width, height);
 		adapter = new ImagePartAdapter(this, images);
-		
+		grid.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				Toast.makeText(parent.getContext(),"Has pulsado: " + position,Toast.LENGTH_SHORT).show();
+			}	
+		});
 		grid.setAdapter(adapter);
 	}
 
