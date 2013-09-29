@@ -5,10 +5,16 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.DragEvent;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnDragListener;
+import android.view.View.OnLongClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -48,17 +54,42 @@ public class ImageActivity extends Activity {
 		toUri = getIntent().getStringExtra("URI");
 		images = photoSplit.splitPhoto(toUri, cells, width, height);
 		adapter = new ImagePartAdapter(this, images);
+
 		grid.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
 				Toast.makeText(parent.getContext(),"Has pulsado: " + position,Toast.LENGTH_SHORT).show();
-			}	
+			}
+			
+			
 		});
+		
+		grid.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Toast.makeText(parent.getContext(),"Has pulsado el view con id: " + id +"\n"
+												+ "Posición: " + position,Toast.LENGTH_SHORT).show();
+				return true;
+			}
+		});
+		
+		
+		
+		grid.setHorizontalSpacing(1);
+		grid.setVerticalSpacing(1);
+		
 		grid.setAdapter(adapter);
 	}
-
+	
+	
+	public void toasting (String message){
+		Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

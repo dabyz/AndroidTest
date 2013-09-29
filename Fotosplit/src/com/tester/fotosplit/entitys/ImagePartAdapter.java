@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnTouchListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
@@ -44,7 +46,7 @@ public class ImagePartAdapter extends BaseAdapter{
 
 		imageView.setImageBitmap(
 				images.get(position).getBitmap());
-		System.out.println(context.getResources().getDisplayMetrics());
+
 		
 		
 		return view;
