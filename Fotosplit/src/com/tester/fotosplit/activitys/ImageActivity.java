@@ -3,6 +3,7 @@ package com.tester.fotosplit.activitys;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.DragEvent;
@@ -35,6 +36,9 @@ public class ImageActivity extends Activity {
 	private int width;
 	private int height;
 	private int cells;
+	
+	private ImagePart start = null;
+	private ImagePart end = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +47,12 @@ public class ImageActivity extends Activity {
 		grid = (GridView) findViewById(R.id.gridView);
 		photoSplit = new PhotoSplit(this);
 		cells = getIntent().getIntExtra("CELLS", DEFAULT_CELLS);
-		//grid.setStretchMode(GridView.AUTO_FIT);
+//grid.setStretchMode(GridView.AUTO_FIT);
 		grid.setNumColumns(cells);
 		
 		
 		
-		//width = getIntent().getIntExtra("WIDTH", 50)/cells;
+//width = getIntent().getIntExtra("WIDTH", 50)/cells;
 		height = getIntent().getIntExtra("HEIGHT", 50)/cells;
 		width = height;
 		toUri = getIntent().getStringExtra("URI");
@@ -60,23 +64,48 @@ public class ImageActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
-				Toast.makeText(parent.getContext(),"Has pulsado: " + position,Toast.LENGTH_SHORT).show();
+				if (start== null){
+					//start = (ImagePart) grid.getAdapter().getItem(position);
+					view.setBackgroundColor(Color.GREEN);
+					view.setPadding(3, 3, 3, 3);
+					
+				}
+				
 			}
 			
 			
 		});
+//		
 		
-		grid.setOnItemLongClickListener(new OnItemLongClickListener() {
+		
+//		grid.setOnItemLongClickListener(new OnItemLongClickListener() {
+//
+//			@Override
+//			public boolean onItemLongClick(AdapterView<?> parent, View view,
+//					int position, long id) {
+//				Toast.makeText(parent.getContext(),"Has pulsado el view con id: " + id +"\n"
+//												+ "Posición: " + position,Toast.LENGTH_SHORT).show();
+//				return true;
+//			}
+//		});
+		
 
-			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				Toast.makeText(parent.getContext(),"Has pulsado el view con id: " + id +"\n"
-												+ "Posición: " + position,Toast.LENGTH_SHORT).show();
-				return true;
-			}
-		});
 		
+		
+		
+//		grid.setOnDragListener(new OnDragListener() {
+//			
+//			@Override
+//			public boolean onDrag(View v, DragEvent event) {
+//				switch(event.getAction()){
+//				case DragEvent.ACTION_DRAG_STARTED:
+//					event.
+//				case DragEvent.ACTION_DRAG_ENDED:
+//				}
+//				return false;
+//			}
+//		});
+	
 		
 		
 		grid.setHorizontalSpacing(1);

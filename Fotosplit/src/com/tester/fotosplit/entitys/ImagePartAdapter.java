@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.View.OnTouchListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.tester.fotosplit.R;
 
@@ -46,7 +47,8 @@ public class ImagePartAdapter extends BaseAdapter{
 
 		imageView.setImageBitmap(
 				images.get(position).getBitmap());
-
+		
+		
 		
 		
 		return view;
