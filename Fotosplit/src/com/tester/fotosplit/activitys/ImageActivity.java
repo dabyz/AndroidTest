@@ -2,7 +2,11 @@ package com.tester.fotosplit.activitys;
 
 import java.util.ArrayList;
 
+import org.apache.http.protocol.HTTP;
+
 import android.app.Activity;
+import android.content.ClipData;
+
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -10,13 +14,16 @@ import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnDragListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.tester.fotosplit.R;
@@ -58,58 +65,29 @@ public class ImageActivity extends Activity {
 		toUri = getIntent().getStringExtra("URI");
 		images = photoSplit.splitPhoto(toUri, cells, width, height);
 		adapter = new ImagePartAdapter(this, images);
-
-		grid.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long id) {
-				if (start== null){
-					//start = (ImagePart) grid.getAdapter().getItem(position);
-					view.setBackgroundColor(Color.GREEN);
-					view.setPadding(3, 3, 3, 3);
-					
-				}
-				
-			}
-			
-			
-		});
-//		
 		
-		
-//		grid.setOnItemLongClickListener(new OnItemLongClickListener() {
-//
-//			@Override
-//			public boolean onItemLongClick(AdapterView<?> parent, View view,
-//					int position, long id) {
-//				Toast.makeText(parent.getContext(),"Has pulsado el view con id: " + id +"\n"
-//												+ "Posición: " + position,Toast.LENGTH_SHORT).show();
-//				return true;
-//			}
-//		});
 		
 
-		
-		
-		
-//		grid.setOnDragListener(new OnDragListener() {
-//			
-//			@Override
-//			public boolean onDrag(View v, DragEvent event) {
-//				switch(event.getAction()){
-//				case DragEvent.ACTION_DRAG_STARTED:
-//					event.
-//				case DragEvent.ACTION_DRAG_ENDED:
-//				}
-//				return false;
-//			}
-//		});
-	
+
+
+
 		
 		
 		grid.setHorizontalSpacing(1);
 		grid.setVerticalSpacing(1);
+		grid.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View view, MotionEvent event) {
+				ImageView imageView = (ImageView) view.findViewById(R.id.imageView1);
+				//ClipData.Item item = new ClipData.Item((CharSequence) view.getTag());
+				View.DragShadowBuilder shadow =  new View.DragShadowBuilder(imageView);
+				ClipData clipData = ClipData.newPlainText("Id: " + view.getId() ,"TestDaD");
+				view.startDrag(clipData, shadow, grid, view.getId());
+				
+				return true;
+			}
+		});
 		
 		grid.setAdapter(adapter);
 	}
