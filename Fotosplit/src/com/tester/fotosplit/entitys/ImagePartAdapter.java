@@ -24,11 +24,11 @@ import android.widget.Toast;
 
 import com.tester.fotosplit.R;
 
-public class ImagePartAdapter extends BaseAdapter{
+public class ImagePartAdapter extends BaseAdapter {
 	private Context context;
 	private ArrayList<ImagePart> images;
-	
-	public ImagePartAdapter(Context context, ArrayList<ImagePart> images){
+
+	public ImagePartAdapter(Context context, ArrayList<ImagePart> images) {
 		this.context = context;
 		this.images = images;
 	}
@@ -54,20 +54,34 @@ public class ImagePartAdapter extends BaseAdapter{
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View view = inflater.inflate(R.layout.row_image, null);
 		view.setId(position);
+
 		ImageView imageView = (ImageView) view.findViewById(R.id.imageView1);
 
 		imageView.setImageBitmap(
 				images.get(position).getBitmap());
-		
-		
-
+		view.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View view, MotionEvent event) {
+				ImageView imageView = (ImageView) view.findViewById(R.id.imageView1);
+				//ClipData.Item item = new ClipData.Item((CharSequence) view.getTag());
+				View.DragShadowBuilder shadow =  new View.DragShadowBuilder(imageView);
+				ClipData clipData = ClipData.newPlainText("Id: " + view.getId() ,"TestDaD");
+				view.startDrag(clipData, shadow, view, view.getId());
+				
+				return true;
+			}
+		});
 		
 		view.setOnDragListener(new OnDragListener() {
 			
 			@Override
 			public boolean onDrag(View view, DragEvent event) {
 				
-				View startView = view;
+				View startView = (View)event.getLocalState();
+				System.out.println("ID empezando el método: " + view.getId());
+				
+				
 				
 				switch (event.getAction())
 				{
@@ -75,40 +89,46 @@ public class ImagePartAdapter extends BaseAdapter{
 					System.out.println("......DragStarted.in" + 
 												view.getId());
 					
+					break;
 				case DragEvent.ACTION_DRAG_EXITED:
 					System.out.println("......View Exited..from." + 
 												view.getId());
+					break;
 				case DragEvent.ACTION_DRAG_ENTERED:
 					System.out.println("......DragEntered...in.." + 
 												view.getId());
+					break;
 				case DragEvent.ACTION_DROP:
-					ImageView imageView;
-					GridView grid;
-					ImagePart imagePart;
-					Adapter adapter;
-					Bitmap bitmap;
 					
-					grid = (GridView) event.getLocalState();
-					adapter = grid.getAdapter();
 					
-					imageView = (ImageView)view.findViewById(R.id.imageView1);
-					imagePart = (ImagePart)adapter.getItem(startView.getId());
-					bitmap = imagePart.getBitmap();
+						System.out.println("ID empezando el drop: " + view.getId());
+					//View viewSource = ((View) event.getLocalState()).getId();
+						ImageView imageView;
+						GridView grid;
+						ImagePart imagePart;
+						Adapter adapter;
+						Bitmap bitmap;
+						
+						grid = (GridView) startView.getParent();
+						adapter = grid.getAdapter();
+						
+						imageView = (ImageView)view.findViewById(R.id.imageView1);
+						imagePart = (ImagePart)adapter.getItem(startView.getId());
+						bitmap = imagePart.getBitmap();
 					imageView.setImageBitmap(bitmap);
 					
-					imageView = (ImageView)startView.findViewById(R.id.imageView1);
+						imageView = (ImageView)startView.findViewById(R.id.imageView1);
 					imagePart = (ImagePart)adapter.getItem(view.getId());
 					bitmap = imagePart.getBitmap();
-					imageView.setImageBitmap(bitmap);
+						imageView.setImageBitmap(bitmap);
+						
 					
+
 				}
 				return true;
 			}
 		});
 		
-		
-		
 		return view;
 	}
-
 }

@@ -7,6 +7,7 @@ import org.apache.http.protocol.HTTP;
 import android.app.Activity;
 import android.content.ClipData;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.view.View.OnDragListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.webkit.MimeTypeMap;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -31,7 +33,7 @@ import com.tester.fotosplit.entitys.ImagePart;
 import com.tester.fotosplit.entitys.ImagePartAdapter;
 import com.tester.fotosplit.util.PhotoSplit;
 
-public class ImageActivity extends Activity {
+public class ImageActivity extends Activity{
 	
 	private static final int DEFAULT_CELLS = 3;
 	
@@ -66,7 +68,7 @@ public class ImageActivity extends Activity {
 		images = photoSplit.splitPhoto(toUri, cells, width, height);
 		adapter = new ImagePartAdapter(this, images);
 		
-		
+
 
 
 
@@ -75,19 +77,9 @@ public class ImageActivity extends Activity {
 		
 		grid.setHorizontalSpacing(1);
 		grid.setVerticalSpacing(1);
-		grid.setOnTouchListener(new OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View view, MotionEvent event) {
-				ImageView imageView = (ImageView) view.findViewById(R.id.imageView1);
-				//ClipData.Item item = new ClipData.Item((CharSequence) view.getTag());
-				View.DragShadowBuilder shadow =  new View.DragShadowBuilder(imageView);
-				ClipData clipData = ClipData.newPlainText("Id: " + view.getId() ,"TestDaD");
-				view.startDrag(clipData, shadow, grid, view.getId());
-				
-				return true;
-			}
-		});
+		
+		
+		
 		
 		grid.setAdapter(adapter);
 	}
