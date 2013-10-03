@@ -2,30 +2,10 @@ package com.tester.fotosplit.activitys;
 
 import java.util.ArrayList;
 
-import org.apache.http.protocol.HTTP;
-
 import android.app.Activity;
-import android.content.ClipData;
-
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.DragEvent;
 import android.view.Menu;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnDragListener;
-import android.view.View.OnLongClickListener;
-import android.view.View.OnTouchListener;
-import android.webkit.MimeTypeMap;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.tester.fotosplit.R;
@@ -46,8 +26,6 @@ public class ImageActivity extends Activity{
 	private int height;
 	private int cells;
 	
-	private ImagePart start = null;
-	private ImagePart end = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
