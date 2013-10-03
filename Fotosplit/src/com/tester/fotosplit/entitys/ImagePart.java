@@ -6,8 +6,7 @@ import android.view.View;
 import android.view.View.OnDragListener;
 
 public class ImagePart{
-	private int column;
-	private int row;
+	private int realPosition;
 	private Bitmap bitmap;
 
 	
@@ -17,26 +16,16 @@ public class ImagePart{
 	}
 
 
-	public ImagePart( int column, int row, Bitmap bitmap) {
-		this.column = column;
-		this.row = row;
+	public ImagePart( int realPostition, Bitmap bitmap) {
+		this.realPosition = realPostition;
 	}
 
-
-	public int getColumn() {
-		return column;
+	public int getRealPosition() {
+		return realPosition;
 	}
 
-	public void setColumn(int column) {
-		this.column = column;
-	}
-
-	public int getRow() {
-		return row;
-	}
-
-	public void setRow(int row) {
-		this.row = row;
+	public void setRealPosition (int realPosition) {
+		this.realPosition = realPosition;
 	}
 
 

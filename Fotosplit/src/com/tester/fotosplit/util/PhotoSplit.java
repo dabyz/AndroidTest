@@ -50,15 +50,12 @@ public class PhotoSplit {
 		int y = 0;
 		ArrayList<ImagePart> images = new ArrayList<ImagePart>();
 		for(int i = 0; i<cells*cells ; i++){
-			//Calculate initial position of this part
 			x = (i%cells) * width;
 			y = (i/cells) * height;
-			
-			Bitmap bitmapPart = Bitmap.createBitmap(
-						bitmap, x, y, width, height
-					);
+			Bitmap bitmapPart = Bitmap.createBitmap(bitmap, x, y, width, height);
 			ImagePart imagePart = new ImagePart();
 			imagePart.setBitmap(bitmapPart);
+			imagePart.setRealPosition(i);
 			images.add(imagePart);
 		}
 		return images;

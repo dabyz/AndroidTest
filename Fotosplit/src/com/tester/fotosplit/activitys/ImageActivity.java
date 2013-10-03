@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.tester.fotosplit.R;
 import com.tester.fotosplit.entitys.ImagePart;
 import com.tester.fotosplit.entitys.ImagePartAdapter;
+import com.tester.fotosplit.util.MessArrayList;
 import com.tester.fotosplit.util.PhotoSplit;
 
 public class ImageActivity extends Activity{
@@ -34,31 +35,16 @@ public class ImageActivity extends Activity{
 		grid = (GridView) findViewById(R.id.gridView);
 		photoSplit = new PhotoSplit(this);
 		cells = getIntent().getIntExtra("CELLS", DEFAULT_CELLS);
-//grid.setStretchMode(GridView.AUTO_FIT);
 		grid.setNumColumns(cells);
-		
-		
-		
-//width = getIntent().getIntExtra("WIDTH", 50)/cells;
 		height = getIntent().getIntExtra("HEIGHT", 50)/cells;
 		width = height;
 		toUri = getIntent().getStringExtra("URI");
 		images = photoSplit.splitPhoto(toUri, cells, width, height);
+		MessArrayList<ImagePart> messer = new MessArrayList<ImagePart>(images);
+		images = (ArrayList<ImagePart>) messer.mess();
 		adapter = new ImagePartAdapter(this, images);
-		
-
-
-
-
-
-		
-		
 		grid.setHorizontalSpacing(1);
 		grid.setVerticalSpacing(1);
-		
-		
-		
-		
 		grid.setAdapter(adapter);
 	}
 	

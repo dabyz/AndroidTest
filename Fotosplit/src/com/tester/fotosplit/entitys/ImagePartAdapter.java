@@ -28,6 +28,12 @@ public class ImagePartAdapter extends BaseAdapter {
 	private Context context;
 	private ArrayList<ImagePart> images;
 
+
+
+	public ImagePartAdapter(Context context, ArrayList<ImagePart> images) {
+		this.context = context;
+		this.images = images;
+	}
 	public Context getContext() {
 		return context;
 	}
@@ -41,11 +47,6 @@ public class ImagePartAdapter extends BaseAdapter {
 	}
 
 	public void setImages(ArrayList<ImagePart> images) {
-		this.images = images;
-	}
-
-	public ImagePartAdapter(Context context, ArrayList<ImagePart> images) {
-		this.context = context;
 		this.images = images;
 	}
 
@@ -70,9 +71,7 @@ public class ImagePartAdapter extends BaseAdapter {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View view = inflater.inflate(R.layout.row_image, null);
 		view.setId(position);
-
 		ImageView imageView = (ImageView) view.findViewById(R.id.imageView1);
-
 		imageView.setImageBitmap(images.get(position).getBitmap());
 		view.setOnTouchListener(new OnTouchListener() {
 
@@ -98,52 +97,52 @@ public class ImagePartAdapter extends BaseAdapter {
 			public boolean onDrag(View view, DragEvent event) {
 
 				View startView = (View) event.getLocalState();
-				System.out.println("ID empezando el método: " + view.getId());
-
+				
 				switch (event.getAction()) {
 				case DragEvent.ACTION_DRAG_STARTED:
-					System.out.println("......DragStarted.in" + view.getId());
-
-					break;
-				case DragEvent.ACTION_DRAG_EXITED:
-					System.out.println("......View Exited..from."
-							+ view.getId());
-					break;
-				case DragEvent.ACTION_DRAG_ENTERED:
-					System.out.println("......DragEntered...in.."
-							+ view.getId());
-					break;
-				case DragEvent.ACTION_DROP:
-
-					System.out.println("ID empezando el drop: " + view.getId());
-					// View viewSource = ((View) event.getLocalState()).getId();
-					ImageView imageView;
-					GridView grid;
-					ImagePart imagePart;
-					ImagePart imagePartAux;
-					ImagePartAdapter adapter;
-					Bitmap bitmap;
-
-					grid = (GridView) startView.getParent();
-					adapter = (ImagePartAdapter) grid.getAdapter();
-
-					imageView = (ImageView) view.findViewById(R.id.imageView1);
-					imagePart = (ImagePart) adapter.getItem(startView.getId());
-					bitmap = imagePart.getBitmap();
-					imageView.setImageBitmap(bitmap);
-					imagePartAux = imagePart;
 					
-
-					imageView = (ImageView) startView.findViewById(R.id.imageView1);
-					imagePart = (ImagePart) adapter.getItem(view.getId());
-					bitmap = imagePart.getBitmap();
-					imageView.setImageBitmap(bitmap);
-					adapter.getImages().set(view.getId(),imagePartAux);
-					adapter.getImages().set(startView.getId(),imagePart);
-
+					break;
+					
+				case DragEvent.ACTION_DRAG_EXITED:
+					view.setPressed(false);
+					break;
+					
+				case DragEvent.ACTION_DRAG_ENTERED:
+					view.setPressed(true);
+					break;
+					
+				case DragEvent.ACTION_DROP:
+					cambiaImagen(startView, view);
+					break;
+					
 				}
 				return true;
 			}
+			
+			public void cambiaImagen(View startView, View view){
+				ImageView imageView;
+				GridView grid;
+				ImagePart imagePart;
+				ImagePart imagePartAux;
+				ImagePartAdapter adapter;
+				Bitmap bitmap;
+				grid = (GridView) startView.getParent();
+				adapter = (ImagePartAdapter) grid.getAdapter();
+
+				imageView = (ImageView) view.findViewById(R.id.imageView1);
+				imagePart = (ImagePart) adapter.getItem(startView.getId());
+				bitmap = imagePart.getBitmap();
+				imageView.setImageBitmap(bitmap);
+				imagePartAux = imagePart;
+
+				imageView = (ImageView) startView.findViewById(R.id.imageView1);
+				imagePart = (ImagePart) adapter.getItem(view.getId());
+				bitmap = imagePart.getBitmap();
+				imageView.setImageBitmap(bitmap);
+				adapter.getImages().set(view.getId(),imagePartAux);
+				adapter.getImages().set(startView.getId(),imagePart);
+			}
+			
 		});
 
 		return view;
