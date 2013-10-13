@@ -27,7 +27,6 @@ public class ImageActivity extends Activity{
 	private int height;
 	private int cells;
 	
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,7 +46,6 @@ public class ImageActivity extends Activity{
 		grid.setVerticalSpacing(1);
 		grid.setAdapter(adapter);
 	}
-	
 	
 	public void toasting (String message){
 		Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
@@ -122,8 +120,5 @@ public class ImageActivity extends Activity{
 
 	public void setToUri(String toUri) {
 		this.toUri = toUri;
-	}
-	
-	
-	
+	}	
 }

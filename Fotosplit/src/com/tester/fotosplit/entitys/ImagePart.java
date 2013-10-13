@@ -1,9 +1,6 @@
 package com.tester.fotosplit.entitys;
 
 import android.graphics.Bitmap;
-import android.view.DragEvent;
-import android.view.View;
-import android.view.View.OnDragListener;
 
 public class ImagePart{
 	private int realPosition;

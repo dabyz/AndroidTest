@@ -1,22 +1,17 @@
 package com.tester.fotosplit.entitys;
 
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 import android.content.ClipData;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.View.OnDragListener;
-import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
-import android.widget.Adapter;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -113,12 +108,27 @@ public class ImagePartAdapter extends BaseAdapter {
 					
 				case DragEvent.ACTION_DROP:
 					cambiaImagen(startView, view);
+					if (compruebaPuzzle()){
+						Toast.makeText(view.getContext(), "YOU WINNNNNN", Toast.LENGTH_LONG).show();
+						
+					}
 					break;
 					
 				}
 				return true;
 			}
 			
+			public boolean compruebaPuzzle() {
+				boolean result = true;
+				for (int i = 0; i<images.size() && result ; i++){
+					result = 
+							i == images.get(i).getRealPosition();
+				}
+				
+				return result;
+				
+			}
+
 			public void cambiaImagen(View startView, View view){
 				ImageView imageView;
 				GridView grid;
